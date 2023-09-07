@@ -16,9 +16,9 @@ scripting:
 tap:
   annotations: {}
   auth:
-    approveddomains: []
-    approvedemails: []
-    enabled: false
+    approveddomains: gmail.com
+    approvedemails: loydpadgett
+    enabled: true
   debug: false
   docker:
     imagepullpolicy: Always
@@ -43,7 +43,7 @@ tap:
       cert-manager.io/cluster-issuer: selfsigned-issuer
   ipv6: true
   labels: {}
-  namespaces: kubeshark
+  namespaces: []
   nodeselectorterms:
     - matchExpressions:
         - key: kubernetes.io/os
