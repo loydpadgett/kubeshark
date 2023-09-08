@@ -28,7 +28,6 @@ tap:
   dryrun: false
   ignoretainted: false
   ingress:
-    # certmanager: letsencrypt-prod
     classname: nginx
     controller: k8s.io/ingress-nginx
     enabled: true
@@ -37,13 +36,30 @@ tap:
       - secretName: kubeshark-general-tls
         hosts:
           - ks.auth.k3s.lan
+        http:
+          paths:
+            - backend:
+                service:
+                  name: kubeshark-hub
+                  port:
+                    number: 80
+              path: /api(/|$)(.*)
+              pathType: Prefix
+
+            - backend:
+                service:
+                  name: kubeshark-front
+                  port:
+                    number: 80
+              path: /()(.*)
+              pathType: Prefix
     annotations:
       kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "false"
       cert-manager.io/cluster-issuer: selfsigned-issuer
   ipv6: true
   labels: {}
-  namespaces: kubeshark
+  namespaces: default
   nodeselectorterms:
     - matchExpressions:
         - key: kubernetes.io/os
@@ -56,7 +72,7 @@ tap:
   proxy:
     front:
       port: 8899
-    host: 127.0.0.1
+    host: 0.0.0.0
     hub:
       port: 8898
       srvport: 8898
