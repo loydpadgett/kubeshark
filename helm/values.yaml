@@ -16,9 +16,9 @@ scripting:
 tap:
   annotations: {}
   auth:
-    approveddomains: []
-    approvedemails: []
-    enabled: false
+    approveddomains: gmail.com
+    approvedemails: loydpadgett
+    enabled: true
   debug: false
   docker:
     imagepullpolicy: Always
